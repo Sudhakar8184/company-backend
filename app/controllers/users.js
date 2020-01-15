@@ -76,14 +76,19 @@ module.exports = {
     }
   },
   getUsers: async (req, res) => {
-    let data = JSON.parse(JSON.stringify(req.query))
-    console.log(data)
-    const user = await User.find({ role: 'user' })
-    if (user) {
-      return res.json({ success: true, data: user })
-    } else {
-      return res.json({ success: false })
+    try{
+      let data = JSON.parse(JSON.stringify(req.query))
+      console.log(data)
+      const user = await User.find({ role: 'user' })
+      if (user) {
+        return res.json({ success: true, data: user })
+      } else {
+        return res.json({ success: false })
+      }
+    } catch(error){
+      return res.json({ success: false ,data: error})
     }
+   
   },
   getUserDetails: async (req, res) => {
     try{
